@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Analysis</title>
+</head>
+<body style="background-color: rgba(145, 231, 191, 0.822);">
+
+    <h2 style="color: rgb(39, 131, 100);">Student Marks Analysis</h2>
+
+    <label for="marks" style="color: rgb(39, 131, 100);">Enter student marks: </label>
+    <input type="number" id="marks" placeholder="Enter marks"><br>
+    <button onclick="addMarks()" style="color: rgb(39, 131, 100);padding: 7px;">Add Marks</button><br><br>
+
+    <button onclick="calculateAverage()" style="color: rgb(39, 131, 100);">Calculate Average</button><br>
+    <button onclick="findHighest()" style="color: rgb(39, 131, 100);">Find Highest Marks</button><br>
+    <button onclick="findLowest()" style="color: rgb(39, 131, 100);">Find Lowest Marks</button><br>
+    <button onclick="displayDescending()" style="color: rgb(39, 131, 100);">Display Marks in Descending Order</button><br><br>
+
+    <div id="output"></div>
+
+    <script>
+        let marksList = [];
+
+        function addMarks() {
+            let marksInput = document.getElementById("marks").value;
+            let marks = parseFloat(marksInput);
+
+            // The updated condition checks if the input is a number and non-negative
+            if (!isNaN(marks) && marks >= 0) {
+                marksList.push(marks);
+                document.getElementById("output").innerHTML = "Marks added: " + marks;
+                document.getElementById("marks").value = ''; // Clear the input
+            } else {
+                alert("Please enter a valid number for marks.");
+            }
+        }
+
+        function calculateAverage() {
+            if (marksList.length === 0) {
+                alert("No marks have been entered yet.");
+                return;
+            }
+
+            let total = marksList.reduce((acc, curr) => acc + curr, 0);
+            let average = total / marksList.length;
+            document.getElementById("output").innerHTML = "Average Marks: " + average.toFixed(2);
+        }
+
+        function findHighest() {
+            if (marksList.length === 0) {
+                alert("No marks have been entered yet.");
+                return;
+            }
+
+            let highest = Math.max(...marksList);
+            document.getElementById("output").innerHTML = "Highest Marks: " + highest;
+        }
+
+        function findLowest() {
+            if (marksList.length === 0) {
+                alert("No marks have been entered yet.");
+                return;
+            }
+
+            let lowest = Math.min(...marksList);
+            document.getElementById("output").innerHTML = "Lowest Marks: " + lowest;
+        }
+
+        function displayDescending() {
+            if (marksList.length === 0) {
+                alert("No marks have been entered yet.");
+                return;
+            }
+
+            let sortedMarks = [...marksList].sort((a, b) => b - a);
+            document.getElementById("output").innerHTML = "Marks in Descending Order: " + sortedMarks.join(", ");
+        }
+    </script>
+
+</body>
+</html>
